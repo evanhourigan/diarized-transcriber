@@ -4,6 +4,7 @@ import os
 import sys
 import json
 import whisperx
+import torch
 from dotenv import load_dotenv
 from datetime import timedelta
 
@@ -29,9 +30,9 @@ def main():
         print("❌ Missing Hugging Face token. Add HUGGINGFACE_TOKEN=... to a .env file.")
         sys.exit(1)
 
-    device = "cuda" if whisperx.utils.is_cuda_available() else "cpu"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"🚀 Loading Whisper model '{model_name}' on {device}...")
-    model = whisperx.load_model(model_name, device)
+    model = whisperx.load_model(model_name, device, compute_type="float32")
 
     print("🎧 Transcribing audio...")
     audio = whisperx.load_audio(audio_path)

@@ -1,4 +1,13 @@
+# Python packaging/build
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
 .venv/
+.env/
 .direnv/
-.env
+
+# PyCache
 __pycache__/
+*.pyc
