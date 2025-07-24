@@ -5,7 +5,7 @@ setup(
     version="0.1",
     packages=find_packages(),
     install_requires=[
-        "whisperx @ git+https://github.com/m-bain/whisperx.git",
+        "whisperx @ git+https://github.com/m-bain/whisperx.git@main",
         "pyannote.audio",
         "python-dotenv",
     ],
