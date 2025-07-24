@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-
-import os
+import argparse
 import sys
 import json
+import os
 import whisperx
 import torch
 from dotenv import load_dotenv
@@ -11,6 +11,12 @@ from pathlib import Path
 from whisperx.diarize import assign_word_speakers
 from whisper_podcast_transcriber.diarization import perform_diarization
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Transcribe an audio file using WhisperX.")
+    parser.add_argument("audio_path", help="Path to the audio file")
+    parser.add_argument("--model", default="medium", help="Whisper model to use (default: medium)")
+    parser.add_argument("--skip-diarization", action="store_true", help="Skip speaker diarization")
+    return parser.parse_args()
 
 def format_timestamp(seconds: float) -> str:
     """Format seconds into SRT timestamp (HH:MM:SS,mmm)."""
@@ -30,10 +36,8 @@ def main():
     dotenv_path = project_dir.parent / ".env"
     load_dotenv(dotenv_path)
     hf_token = os.getenv("HUGGINGFACE_TOKEN")
-    if not hf_token:
-        print("❌ Missing Hugging Face token.")
-        print("   Add HUGGINGFACE_TOKEN=your_token_here to a .env file or your shell environment.")
-        print("   You can get a token from https://huggingface.co/settings/tokens\n")
+    if not hf_token and not skip_diarization:
+        print("❌ Missing Hugging Face token. Add HUGGINGFACE_TOKEN=... to a .env file or use --skip-diarization.")
         sys.exit(1)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -48,14 +52,14 @@ def main():
     model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
     aligned = whisperx.align(result["segments"], model_a, metadata, audio, device)
 
-    # 🔉 Diarization
-    print("🔉 Performing speaker diarization...")
-    diarize_segments = perform_diarization(audio_path, hf_token, device)
+    if not skip_diarization:
+        print("🔉 Performing speaker diarization...")
+        diarize_segments = perform_diarization(str(audio_path), hf_token, device)
 
-    # 🪢 Speaker assignment
-    print("🪢 Merging speaker labels...")
-    full_output = assign_word_speakers(diarize_segments, aligned)
-    final_segments = full_output["segments"] if isinstance(full_output, dict) and "segments" in full_output else full_output
+        print("🪢 Merging speaker labels...")
+        final_segments = assign_word_speakers(diarize_segments, aligned)
+    else:
+        final_segments = aligned["segments"]
 
     base = audio_path.with_suffix("")
     txt_path = base.with_name(base.name + "_transcript.txt")
