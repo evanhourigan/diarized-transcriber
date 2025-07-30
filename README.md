@@ -2,27 +2,41 @@
 
 A CLI tool for transcribing podcast episodes with speaker diarization using WhisperX.
 
-Outputs:
+Outputs include:
 
-- 📝 Plain-text transcript (`.txt`)
-- 💬 Subtitle file (`.srt`)
-- 🧾 Rich JSON metadata (`.json`)
+- 📝 Speaker-paragraph TXT
+- 💬 Subtitle file (.srt)
+- 🧾 Markdown transcript (.md)
+- 📄 PDF transcript (.pdf)
+- 🌐 HTML transcript (.html)
+- 🔢 Rich JSON metadata (.json)
 
 ## Features
 
-- 🎙️ Transcription using OpenAI Whisper models
+- 🎙️ Transcription using OpenAI Whisper models (default: medium)
 - 🧠 Automatic speaker diarization (via Hugging Face token)
-- ⚙️ Supports model selection (e.g., `base`, `medium`, `large`)
+- 🎯 Specify exact number of speakers for improved accuracy
+- ⚙️ Supports model selection (e.g., `base`, `medium`, `large-v3`)
+- 🔍 Optional debug mode for verbose output
 - 🧵 Outputs include aligned timestamps and speaker tags
+- ✅ Easily export all formats or specific ones
+- 📁 Smart output naming based on input file
+- 🎨 Emoji-fied progress logging
 
 ## Installation
 
-Clone the repo and install in editable mode:
+First, [install Poetry](https://python-poetry.org/docs/#installation) if you haven't already.
 
 ```bash
 git clone https://github.com/yourusername/whisper-podcast-transcriber.git
 cd whisper-podcast-transcriber
-python -m pip install -e .
+poetry install
+```
+
+You can install the CLI globally via:
+
+```bash
+poetry run pip install -e .
 ```
 
 Then make sure you add your Hugging Face token:
@@ -38,20 +52,58 @@ HUGGINGFACE_TOKEN=your_token_here
 From anywhere on your machine:
 
 ```bash
-transcribe <audio_file> [--model whisper_model] [--skip-diarization]
+transcribe <audio_file> [options]
 ```
 
-Example:
+### Basic Examples:
 
 ```bash
-transcribe my_podcast.mp3 --model medium
+# Basic transcription with diarization
+transcribe my_podcast.mp3
+
+# Specify exact number of speakers (improves accuracy)
+transcribe my_podcast.mp3 --num-speakers 2
+
+# Skip diarization for faster processing
+transcribe my_podcast.mp3 --skip-diarization
+
+# Use different Whisper model
+transcribe my_podcast.mp3 --model large-v3
+
+# Export specific formats
+transcribe my_podcast.mp3 --formats txt md srt
+
+# Export all formats
+transcribe my_podcast.mp3 --formats all
 ```
 
-This will generate:
+### Advanced Examples:
 
-- `my_podcast_transcript.txt`
-- `my_podcast_transcript.srt`
-- `my_podcast_transcript.json`
+```bash
+# Specify output directory
+transcribe my_podcast.mp3 --output-dir ./transcripts
+
+# Use large model with 3 speakers
+transcribe interview.wav --model large-v3 --num-speakers 3
+
+# Skip diarization and use debug mode
+transcribe call.wav --skip-diarization --debug
+```
+
+## Options
+
+- `--model`: Whisper model to use (default: medium)
+- `--num-speakers`: Exact number of speakers (improves diarization accuracy)
+- `--skip-diarization`: Skip speaker diarization for faster processing
+- `--output-dir`: Directory to save outputs (default: current directory)
+- `--formats`: Output formats: txt, md, srt, json, html, pdf, all
+- `--debug`: Show detailed debug warnings and logs
+
+## Output Files
+
+Files are automatically named based on the input file:
+
+- `my_podcast.mp3` → `my_podcast-transcript.md`, `my_podcast-transcript.txt`, etc.
 
 ## Requirements
 
