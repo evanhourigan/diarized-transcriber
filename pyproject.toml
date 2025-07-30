@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "whisper-podcast-transcriber"
+version = "0.1.0"
+description = "A CLI tool for podcast transcription with speaker diarization and export to multiple formats."
+authors = ["Evan Hourigan"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "whisper_podcast_transcriber" }]
+
+[tool.poetry.dependencies]
+whisperx = { git = "https://github.com/m-bain/whisperx.git", rev = "2d9ce44" }
+python = ">=3.8,<3.13"
+torch = ">=2.0.0"
+fpdf = "^1.7.2"
+python-dotenv = "^1.0.0"
+
+# pyannote.audio as Git dependency
+pyannote_audio = { git = "https://github.com/pyannote/pyannote-audio.git" }
+
+[tool.poetry.scripts]
+transcribe = "whisper_podcast_transcriber.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

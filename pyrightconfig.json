@@ -1,0 +1,10 @@
+{
+  "include": ["whisper_podcast_transcriber"],
+  "venvPath": ".",
+  "venv": ".venv",
+  "reportMissingImports": false,
+  "reportUnknownVariableType": false,
+  "reportUnknownMemberType": false,
+  "reportMissingTypeStubs": false,
+  "typeCheckingMode": "basic"
+}
