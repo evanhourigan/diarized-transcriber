@@ -50,6 +50,17 @@ from whisper_podcast_transcriber.html_exporter import generate_html_transcript
 from whisper_podcast_transcriber.pdf_exporter import generate_pdf_transcript
 from whisper_podcast_transcriber.rich_progress import PersistentProgress, print_success_panel
 
+def format_duration(seconds: float) -> str:
+    """Convert seconds to H:MM:SS format, showing hours only when needed."""
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    secs = int(seconds % 60)
+    
+    if hours > 0:
+        return f"{hours}:{minutes:02d}:{secs:02d}"
+    else:
+        return f"{minutes}:{secs:02d}"
+
 def main():
     parser = argparse.ArgumentParser(
         prog="transcribe",
@@ -132,7 +143,7 @@ def main():
 
     transcription_time = time.time() - start_time
     if not args.quiet:
-        print(f"✅ Transcription completed in {transcription_time:.1f}s")
+        print(f"✅ Transcription completed in {format_duration(transcription_time)}")
         print(f"📝 Found {len(result['segments'])} segments")
     
     # Create output directory if it doesn't exist
