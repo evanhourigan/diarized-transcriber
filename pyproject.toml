@@ -8,14 +8,13 @@ readme = "README.md"
 packages = [{ include = "whisper_podcast_transcriber" }]
 
 [tool.poetry.dependencies]
-whisperx = { git = "https://github.com/m-bain/whisperx.git", rev = "2d9ce44" }
-python = ">=3.8,<3.13"
+python = ">=3.9,<3.13"
+whisperx = { git = "https://github.com/m-bain/whisperX.git" }
+pyannote_audio = { git = "https://github.com/pyannote/pyannote-audio.git" }
+python-dotenv = "^1.0.0"
 torch = ">=2.0.0"
 fpdf = "^1.7.2"
-python-dotenv = "^1.0.0"
-
-# pyannote.audio as Git dependency
-pyannote_audio = { git = "https://github.com/pyannote/pyannote-audio.git" }
+rich = "^13.0.0"
 
 [tool.poetry.scripts]
 transcribe = "whisper_podcast_transcriber.cli:main"

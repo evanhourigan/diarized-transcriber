@@ -22,6 +22,7 @@ Outputs include:
 - ✅ Easily export all formats or specific ones
 - 📁 Smart output naming based on input file
 - 🎨 Emoji-fied progress logging
+- 📊 Rich progress bars with time estimates
 
 ## Installation
 
@@ -58,7 +59,7 @@ transcribe <audio_file> [options]
 ### Basic Examples:
 
 ```bash
-# Basic transcription with diarization
+# Basic transcription with diarization (timestamps included by default)
 transcribe my_podcast.mp3
 
 # Specify exact number of speakers (improves accuracy)
@@ -75,6 +76,12 @@ transcribe my_podcast.mp3 --formats txt md srt
 
 # Export all formats
 transcribe my_podcast.mp3 --formats all
+
+# Exclude timestamps for clean output
+transcribe my_podcast.mp3 --no-timestamps
+
+# Combine multiple options
+transcribe my_podcast.mp3 --formats all --num-speakers 2
 ```
 
 ### Advanced Examples:
@@ -88,6 +95,12 @@ transcribe interview.wav --model large-v3 --num-speakers 3
 
 # Skip diarization and use debug mode
 transcribe call.wav --skip-diarization --debug
+
+# Clean output without timestamps
+transcribe call.wav --no-timestamps --formats txt md
+
+# Quiet mode - only progress bars visible
+transcribe call.wav --quiet
 ```
 
 ## Options
@@ -95,9 +108,11 @@ transcribe call.wav --skip-diarization --debug
 - `--model`: Whisper model to use (default: medium)
 - `--num-speakers`: Exact number of speakers (improves diarization accuracy)
 - `--skip-diarization`: Skip speaker diarization for faster processing
+- `--no-timestamps`: Exclude timestamps from output files (timestamps included by default)
 - `--output-dir`: Directory to save outputs (default: current directory)
 - `--formats`: Output formats: txt, md, srt, json, html, pdf, all
 - `--debug`: Show detailed debug warnings and logs
+- `--quiet`: Suppress all output except progress bars
 
 ## Output Files
 
