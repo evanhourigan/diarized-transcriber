@@ -1,6 +1,6 @@
-# Whisper Podcast Transcriber
+# Diarized Transcriber
 
-A CLI tool for transcribing podcast episodes with speaker diarization using WhisperX.
+A CLI tool for transcribing conversation audio files with speaker diarization using WhisperX.
 
 Outputs include:
 
@@ -29,8 +29,8 @@ Outputs include:
 First, [install Poetry](https://python-poetry.org/docs/#installation) if you haven't already.
 
 ```bash
-git clone https://github.com/yourusername/whisper-podcast-transcriber.git
-cd whisper-podcast-transcriber
+git clone https://github.com/yourusername/diarized-transcriber.git
+cd diarized-transcriber
 poetry install
 ```
 
@@ -60,47 +60,47 @@ transcribe <audio_file> [options]
 
 ```bash
 # Basic transcription with diarization (timestamps included by default)
-transcribe my_podcast.mp3
+transcribe conversation.mp3
 
 # Specify exact number of speakers (improves accuracy)
-transcribe my_podcast.mp3 --num-speakers 2
+transcribe conversation.mp3 --num-speakers 2
 
 # Skip diarization for faster processing
-transcribe my_podcast.mp3 --skip-diarization
+transcribe conversation.mp3 --skip-diarization
 
 # Use different Whisper model
-transcribe my_podcast.mp3 --model large-v3
+transcribe conversation.mp3 --model large-v3
 
 # Export specific formats
-transcribe my_podcast.mp3 --formats txt md srt
+transcribe conversation.mp3 --formats txt md srt
 
 # Export all formats
-transcribe my_podcast.mp3 --formats all
+transcribe conversation.mp3 --formats all
 
 # Exclude timestamps for clean output
-transcribe my_podcast.mp3 --no-timestamps
+transcribe conversation.mp3 --no-timestamps
 
 # Combine multiple options
-transcribe my_podcast.mp3 --formats all --num-speakers 2
+transcribe conversation.mp3 --formats all --num-speakers 2
 ```
 
 ### Advanced Examples:
 
 ```bash
 # Specify output directory
-transcribe my_podcast.mp3 --output-dir ./transcripts
+transcribe conversation.mp3 --output-dir ./transcripts
 
 # Use large model with 3 speakers
-transcribe interview.wav --model large-v3 --num-speakers 3
+transcribe conversation.wav --model large-v3 --num-speakers 3
 
 # Skip diarization and use debug mode
-transcribe call.wav --skip-diarization --debug
+transcribe conversation.wav --skip-diarization --debug
 
 # Clean output without timestamps
-transcribe call.wav --no-timestamps --formats txt md
+transcribe conversation.wav --no-timestamps --formats txt md
 
 # Quiet mode - only progress bars visible
-transcribe call.wav --quiet
+transcribe conversation.wav --quiet
 ```
 
 ## Options
@@ -118,7 +118,7 @@ transcribe call.wav --quiet
 
 Files are automatically named based on the input file:
 
-- `my_podcast.mp3` → `my_podcast-transcript.md`, `my_podcast-transcript.txt`, etc.
+- `conversation.mp3` → `conversation-transcript.md`, `conversation-transcript.txt`, etc.
 
 ## Requirements
 

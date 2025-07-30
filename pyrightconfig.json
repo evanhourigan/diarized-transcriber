@@ -1,5 +1,5 @@
 {
-  "include": ["whisper_podcast_transcriber"],
+  "include": ["diarized_transcriber"],
   "venvPath": ".",
   "venv": ".venv",
   "reportMissingImports": false,

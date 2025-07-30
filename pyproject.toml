@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "whisper-podcast-transcriber"
+name = "diarized-transcriber"
 version = "0.1.0"
-description = "A CLI tool for podcast transcription with speaker diarization and export to multiple formats."
+description = "A CLI tool for audio transcription with speaker diarization and export to multiple formats."
 authors = ["Evan Hourigan"]
 license = "MIT"
 readme = "README.md"
-packages = [{ include = "whisper_podcast_transcriber" }]
+packages = [{ include = "diarized_transcriber" }]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.13"
@@ -17,7 +17,7 @@ fpdf = "^1.7.2"
 rich = "^13.0.0"
 
 [tool.poetry.scripts]
-transcribe = "whisper_podcast_transcriber.cli:main"
+transcribe = "diarized_transcriber.cli:main"
 
 [build-system]
 requires = ["poetry-core"]

@@ -99,5 +99,5 @@ typer==0.16.0
 typing_extensions==4.14.1
 tzdata==2025.2
 urllib3==2.5.0
--e git+ssh://git@github.com/evanhourigan/whisper-podcast-transcriber.git@58418b871a21d7548fae2aa5c65476946a536850#egg=whisper_podcast_transcriber
+-e git+ssh://git@github.com/evanhourigan/diarized-transcriber.git@58418b871a21d7548fae2aa5c65476946a536850#egg=diarized_transcriber
 yarl==1.20.1

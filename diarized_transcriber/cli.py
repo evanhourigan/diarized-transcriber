@@ -42,13 +42,13 @@ logging.getLogger("pytorch_lightning.utilities.migration.utils").setLevel(loggin
 # Load environment variables from .env file
 load_dotenv()
 
-from whisper_podcast_transcriber.diarization import run_transcribe_with_diarization
-from whisper_podcast_transcriber.srt_exporter import generate_speaker_aware_srt
-from whisper_podcast_transcriber.txt_exporter import generate_txt
-from whisper_podcast_transcriber.markdown_exporter import generate_markdown_transcript
-from whisper_podcast_transcriber.html_exporter import generate_html_transcript
-from whisper_podcast_transcriber.pdf_exporter import generate_pdf_transcript
-from whisper_podcast_transcriber.rich_progress import PersistentProgress, print_success_panel
+from diarized_transcriber.diarization import run_transcribe_with_diarization
+from diarized_transcriber.srt_exporter import generate_speaker_aware_srt
+from diarized_transcriber.txt_exporter import generate_txt
+from diarized_transcriber.markdown_exporter import generate_markdown_transcript
+from diarized_transcriber.html_exporter import generate_html_transcript
+from diarized_transcriber.pdf_exporter import generate_pdf_transcript
+from diarized_transcriber.rich_progress import PersistentProgress, print_success_panel
 
 def format_duration(seconds: float) -> str:
     """Convert seconds to H:MM:SS format, showing hours only when needed."""
