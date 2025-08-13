@@ -8,7 +8,7 @@ def generate_markdown_transcript(segments, output_path, include_timestamps=False
     # Check if any segments have speaker information (indicating diarization was used)
     has_speakers = any("speaker" in seg and seg["speaker"] is not None for seg in segments)
     
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding='utf-8') as f:
         if has_speakers:
             # Use speaker-aware format
             current_speaker = None
@@ -20,9 +20,9 @@ def generate_markdown_transcript(segments, output_path, include_timestamps=False
                 if speaker != current_speaker:
                     if current_speaker is not None:
                         f.write("\n")
-                    f.write(f"**{speaker}:**{timestamp}\n")
+                    f.write(f"**{speaker}:** {timestamp}\n")
                     current_speaker = speaker
-                f.write(f"{text} ")
+                f.write(f"{text}\n")
         else:
             # Use simple format without speaker labels
             for seg in segments:
