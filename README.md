@@ -48,6 +48,19 @@ Then make sure you add your Hugging Face token:
 HUGGINGFACE_TOKEN=your_token_here
 ```
 
+## Testing
+
+Run the test suite to ensure everything is working correctly:
+
+```bash
+# Run all tests
+python run_tests.py
+
+# Or run individual test modules
+python test_markdown_exporter.py
+python test_diarization.py
+```
+
 ## Usage
 
 From anywhere on your machine:
