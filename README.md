@@ -26,10 +26,25 @@ Outputs include:
 
 ## Installation
 
+### Quick Install (Recommended)
+
+```bash
+# Install with pipx (recommended for CLI tools)
+pipx install git+https://github.com/evanhourigan/diarized-transcriber.git
+
+# Install directly from GitHub
+pip install git+https://github.com/evanhourigan/diarized-transcriber.git
+
+# Or use uvx to run without installing
+uvx run diarized-transcriber transcribe <audio_file>
+```
+
+### Development Install
+
 First, [install Poetry](https://python-poetry.org/docs/#installation) if you haven't already.
 
 ```bash
-git clone https://github.com/yourusername/diarized-transcriber.git
+git clone https://github.com/evanhourigan/diarized-transcriber.git
 cd diarized-transcriber
 poetry install
 ```
@@ -59,6 +74,18 @@ python run_tests.py
 # Or run individual test modules
 python test_markdown_exporter.py
 python test_diarization.py
+```
+
+## Demo
+
+Try it out with a sample conversation:
+
+```bash
+# Download a sample audio file (you'll need to provide your own)
+# Then run:
+transcribe sample-conversation.mp3 --formats all --num-speakers 2
+
+# This will generate all output formats for you to explore
 ```
 
 ## Usage
@@ -127,11 +154,56 @@ transcribe conversation.wav --quiet
 - `--debug`: Show detailed debug warnings and logs
 - `--quiet`: Suppress all output except progress bars
 
+## Model Selection & Performance
+
+### Whisper Model Tradeoffs
+
+- **`base`**: Fastest (~1x speed), lower accuracy, good for quick drafts
+- **`medium`**: Balanced (~2x speed), good accuracy, recommended default
+- **`large-v3`**: Slowest (~4x speed), highest accuracy, best for final transcripts
+
+### Speaker Diarization Accuracy
+
+- **Accuracy varies** based on audio quality, speaker clarity, and background noise
+- **Specifying `--num-speakers`** significantly improves accuracy when you know the exact count
+- **Best results** with clear audio, minimal background noise, and distinct speaker voices
+- **Processing time** increases with audio length and speaker count
+
 ## Output Files
 
 Files are automatically named based on the input file:
 
 - `conversation.mp3` → `conversation-transcript.md`, `conversation-transcript.txt`, etc.
+
+## JSON Output Schema
+
+When using `--formats json`, the output includes rich metadata:
+
+```json
+{
+  "audio_file": "conversation.mp3",
+  "model_used": "medium",
+  "processing_time": 45.2,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.2,
+      "speaker": "Speaker 1",
+      "text": "Hello, how are you today?",
+      "confidence": 0.95
+    },
+    {
+      "start": 3.4,
+      "end": 6.1,
+      "speaker": "Speaker 2", 
+      "text": "I'm doing well, thank you.",
+      "confidence": 0.92
+    }
+  ],
+  "speakers_detected": 2,
+  "total_duration": 180.5
+}
+```
 
 ## Requirements
 
