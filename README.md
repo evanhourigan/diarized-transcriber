@@ -68,12 +68,21 @@ HUGGINGFACE_TOKEN=your_token_here
 Run the test suite to ensure everything is working correctly:
 
 ```bash
-# Run all tests
-python run_tests.py
+# First, install the package in development mode
+poetry install
+
+# Then run all tests
+poetry run python tests/run_tests.py
 
 # Or run individual test modules
-python test_markdown_exporter.py
-python test_diarization.py
+poetry run python tests/test_markdown_exporter.py
+poetry run python tests/test_diarization.py
+
+# Alternative: Run with pytest (recommended)
+poetry run pytest tests/
+
+# Or run tests with coverage
+poetry run pytest tests/ --cov=diarized_transcriber
 ```
 
 ## Demo
@@ -195,7 +204,7 @@ When using `--formats json`, the output includes rich metadata:
     {
       "start": 3.4,
       "end": 6.1,
-      "speaker": "Speaker 2", 
+      "speaker": "Speaker 2",
       "text": "I'm doing well, thank you.",
       "confidence": 0.92
     }
